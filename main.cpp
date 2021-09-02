@@ -1,62 +1,71 @@
 #include <iostream>
 
-class Figure{
+class Figure {
 public:
     virtual double area() = 0;
 };
 
-class Parallelogram : public Figure{
+class Parallelogram : public Figure {
 private:
     double p_length;
     double p_width;
+    double p_heigth;
 public:
-    Parallelogram(double length, double width = 0.0) : p_length(length), p_width(width){}
-    double area() override{
+    Parallelogram(double length, double width = 0.0, double heigth = 0.0) : p_length(length), p_width(width), p_heigth(heigth) {}
+    double area() override {
         double area = 0;
-        if(p_width == 0.0){
-            area = p_length * p_length;
-        }else{
-            area = p_length * p_width;
+        if (p_heigth == 0.0) {
+            if (p_width == 0.0) {
+                area = p_length * p_length;
+            }
+            else {
+                area = p_length * p_width;
+            }
         }
+        else {
+            area = p_length * p_heigth;
+        }
+
         return area;
     }
+    friend class Rectangle;
 };
 
-class Circle : public Figure{
+class Circle : public Figure {
     double c_radius;
 public:
-    Circle(double radius) : c_radius(radius){}
-    double area() override{
-        std::cout << "Circle area = " << 2 * 3.1415 * c_radius << std::endl;
+    Circle(double radius) : c_radius(radius) {}
+    double area() override {
+        return 2 * 3.1415 * c_radius;
     }
 };
 
-class Rectangle : public Parallelogram{
+class Rectangle : public Parallelogram {
 public:
-    Rectangle(int length, int width) : Parallelogram(length,width){}
+    Rectangle(int length, int width) : Parallelogram(length, width) {}
 };
 
-class Square : public Parallelogram{
+class Square : public Parallelogram {
 public:
-    void area(){
-        std::cout << "area" << std::endl;
-    }
+    Square(int length) : Parallelogram(length) {}
 };
 
-class Rhombus : public Parallelogram{
+class Rhombus : public Parallelogram {
 public:
-    void area(){
-        std::cout << "area" << std::endl;
-    }
+    Rhombus(double length, double heigth) : Parallelogram(length, length, heigth){}
 };
 
 
-int main(){
+int main() {
 
-    Parallelogram parallelogram(3,4);
-    parallelogram.area();
     Circle circle(1);
-    circle.area();
+    std::cout << "Circle area = " << circle.area() << std::endl;
+    Rectangle rectangle(3, 4);
+    std::cout << "Rectangle area = " << rectangle.area() << std::endl;
+    Square square(3);
+    std::cout << "Square area = " << square.area() << std::endl;
+    Rhombus rhombus(3, 4);
+    std::cout << "Rhombus area = " << rhombus.area() << std::endl;
 
     return 0;
 }
