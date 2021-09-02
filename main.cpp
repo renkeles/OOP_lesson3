@@ -36,7 +36,7 @@ class Circle : public Figure {
 public:
     Circle(double radius) : c_radius(radius) {}
     double area() override {
-        return 2 * 3.1415 * c_radius;
+        return 3.1415 * (c_radius * c_radius);
     }
 };
 
