@@ -3,6 +3,7 @@
 class Figure {
 public:
     virtual double area() = 0;
+    virtual ~Figure() {}
 };
 
 class Parallelogram : public Figure {
@@ -54,9 +55,7 @@ public:
     Rhombus(double length, double heigth) : Parallelogram(length, length, heigth){}
 };
 
-
-int main() {
-
+void task1() {
     Circle circle(2);
     std::cout << "Circle area = " << circle.area() << std::endl;
     Rectangle rectangle(3, 4);
@@ -65,6 +64,22 @@ int main() {
     std::cout << "Square area = " << square.area() << std::endl;
     Rhombus rhombus(3, 4);
     std::cout << "Rhombus area = " << rhombus.area() << std::endl;
+    /*
+    Square square(3);
+    Figure* figure = &square;
+    std::cout << figure->area();
+    */
+}
+
+
+
+
+int main() {
+
+    //task1();
+
+
+
 
     return 0;
 }
