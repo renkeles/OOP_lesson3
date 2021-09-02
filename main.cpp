@@ -2,22 +2,31 @@
 
 class Figure{
 public:
-    virtual void area() = 0;
+    virtual double area() = 0;
 };
 
 class Parallelogram : public Figure{
 private:
-    int p_length;
-    int p_width;
+    double p_length;
+    double p_width;
 public:
-    Parallelogram(int length, int width) : p_length(length), p_width(width){}
+    Parallelogram(double length, double width = 0.0) : p_length(length), p_width(width){}
+    double area() override{
+        double area = 0;
+        if(p_width == 0.0){
+            area = p_length * p_length;
+        }else{
+            area = p_length * p_width;
+        }
+        return area;
+    }
 };
 
 class Circle : public Figure{
     double c_radius;
 public:
     Circle(double radius) : c_radius(radius){}
-    void area() override{
+    double area() override{
         std::cout << "Circle area = " << 2 * 3.1415 * c_radius << std::endl;
     }
 };
@@ -25,10 +34,6 @@ public:
 class Rectangle : public Parallelogram{
 public:
     Rectangle(int length, int width) : Parallelogram(length,width){}
-
-    void area() override{
-        std::cout << "Parallelogram area = " << Parallelogram << std::endl;
-    }
 };
 
 class Square : public Parallelogram{
