@@ -28,7 +28,6 @@ public:
 
         return area;
     }
-    friend class Rectangle;
 };
 
 class Circle : public Figure {
@@ -58,7 +57,7 @@ public:
 
 int main() {
 
-    Circle circle(1);
+    Circle circle(2);
     std::cout << "Circle area = " << circle.area() << std::endl;
     Rectangle rectangle(3, 4);
     std::cout << "Rectangle area = " << rectangle.area() << std::endl;
