@@ -1,5 +1,9 @@
 #include <iostream>
 #include <string>
+#include <cmath>
+
+int NOD(int a, int b);
+int NOK(int a, int b);
 
 class Figure {
 public:
@@ -126,7 +130,15 @@ class Fraction {
 private:
     int f_numerator;
     int f_denominator;
+
+
+
 public:
+    Fraction() {
+        f_numerator = 1;
+        f_denominator = 1;
+    }
+
     Fraction(int numerator, int denominator) : f_numerator(numerator) {
         if (denominator != 0) {
             f_denominator = denominator;
@@ -137,13 +149,105 @@ public:
         };
     }
 
+    friend Fraction operator+(const Fraction &f1, const Fraction &f2);
+    friend Fraction operator-(const Fraction& f1, const Fraction& f2);
+    friend Fraction operator*(const Fraction& f1, const Fraction& f2);
+    friend Fraction operator/(const Fraction& f1, const Fraction& f2);
+
+    Fraction operator-() const;
+
+    int getNum() {
+        return f_numerator;
+    }
+
+    int getDenom() {
+        return f_denominator;
+    }
+
 };
+
+Fraction operator+(const Fraction& f1, const Fraction& f2) {
+
+    Fraction fr;
+    if (f1.f_denominator == f2.f_denominator) {
+        fr.f_numerator = f1.f_numerator + f2.f_numerator;
+        fr.f_denominator = f1.f_denominator;
+    }
+    else {
+        int nok = NOK(f1.f_denominator, f2.f_denominator);
+        fr.f_numerator = ((nok / f1.f_denominator) * f1.f_numerator) + ((nok / f2.f_denominator) * f2.f_numerator);
+        fr.f_denominator = nok;
+    }
+    return fr;
+}
+
+Fraction operator-(const Fraction& f1, const Fraction& f2) {
+
+    Fraction fr;
+    if (f1.f_denominator == f2.f_denominator) {
+        fr.f_numerator = f1.f_numerator - f2.f_numerator;
+        fr.f_denominator = f1.f_denominator;
+    }
+    else {
+        int nok = NOK(f1.f_denominator, f2.f_denominator);
+        fr.f_numerator = ((nok / f1.f_denominator) * f1.f_numerator) - ((nok / f2.f_denominator) * f2.f_numerator);
+        fr.f_denominator = nok;
+    }
+    return fr;
+}
+
+Fraction operator*(const Fraction& f1, const Fraction& f2) {
+    Fraction fr;
+    fr.f_numerator = f1.f_numerator * f2.f_numerator;
+    fr.f_denominator = f1.f_denominator * f2.f_denominator;
+    return fr;
+}
+
+Fraction operator/(const Fraction& f1, const Fraction& f2) {
+    
+    Fraction fr;
+    fr.f_numerator = f1.f_numerator * f2.f_denominator;
+    fr.f_denominator = f1.f_denominator * f2.f_numerator;
+    return fr;
+}
+
+Fraction Fraction::operator-() const {
+    return Fraction(-f_numerator, f_denominator);
+}
+
+int NOD(int a, int b) {
+    while (a != b) {
+        if (a > b) {
+            a -= b;
+        }
+        else {
+            b -= a;
+        }
+    }
+    return a;
+}
+
+int NOK(int a, int b) {
+    return abs(a * b) / NOD(a, b);
+}
 
 int main() {
 
     //task1();
     //task2();
-    Fraction fraction(1, 0);
+    Fraction fr1(2, 3);
+    Fraction fr2(3, 4);
+    Fraction fr3;
+    fr3 = fr1 + fr2;
+    std::cout << fr3.getNum() << "/" << fr3.getDenom() << std::endl;
+    fr3 = fr1 - fr2;
+    std::cout << fr3.getNum() << "/" << fr3.getDenom() << std::endl;
+    fr3 = fr1 * fr2;
+    std::cout << fr3.getNum() << "/" << fr3.getDenom() << std::endl;
+    fr3 = fr1 / fr2;
+    std::cout << fr3.getNum() << "/" << fr3.getDenom() << std::endl;
+
+    std::cout << (-fr1).getNum() << "/" << fr1.getDenom() << std::endl;
 
 
     return 0;
