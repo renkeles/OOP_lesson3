@@ -76,6 +76,8 @@ void task1() {
     */
 }
 
+////////////////////////////////////////////////
+
 class Car {
 private:
     std::string c_company;
@@ -126,13 +128,12 @@ void task2() {
     Minivan minivan("Matrew", "Sidas");
 }
 
+////////////////////////////////////////////////
+
 class Fraction {
 private:
     int f_numerator;
     int f_denominator;
-
-
-
 public:
     Fraction() {
         f_numerator = 1;
@@ -297,6 +298,10 @@ void task3() {
     if (fr1 <= fr2) std::cout << "fr1 <= fr2" << std::endl;
     if (fr1 >= fr2) std::cout << "fr1 >= fr2" << std::endl;
 }
+
+////////////////////////////////////////////////
+
+
 
 int main() {
 
