@@ -122,11 +122,28 @@ void task2() {
     Minivan minivan("Matrew", "Sidas");
 }
 
+class Fraction {
+private:
+    int f_numerator;
+    int f_denominator;
+public:
+    Fraction(int numerator, int denominator) : f_numerator(numerator) {
+        if (denominator != 0) {
+            f_denominator = denominator;
+        }
+        else {
+            std::cout << "Denominator can't be 0, the default value is set 1";
+            f_denominator = 1;
+        };
+    }
+
+};
 
 int main() {
 
     //task1();
-    task2();
+    //task2();
+    Fraction fraction(1, 0);
 
 
     return 0;
