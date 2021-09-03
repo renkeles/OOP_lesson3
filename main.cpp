@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 class Figure {
 public:
@@ -71,14 +72,61 @@ void task1() {
     */
 }
 
+class Car {
+private:
+    std::string c_company;
+    std::string c_model;
+public:
+    Car(std::string company, std::string model) : c_company(company), c_model(model) {
+        std::cout << "Car class. Company: " << c_company << ", model: " << c_model << std::endl;
+    }
+    ~Car() {
+        std::cout << "~Car class delele obj" << std::endl;
+    }
+};
 
+class PassengerCar : virtual public Car {
+public:
+    PassengerCar(std::string company, std::string model) : Car(company, model) {
+        std::cout << "PassengerCar class. Company: " << company << ", model: " << model << std::endl;
+    }
+    ~PassengerCar() {
+        std::cout << "~PassengerCar class delele obj" << std::endl;
+    }
+};
+
+class Bus : virtual public Car {
+public:
+    Bus(std::string company, std::string model) : Car(company, model) {
+        std::cout << "Bus class. Company: " << company << ", model: " << model << std::endl;
+    }
+    ~Bus() {
+        std::cout << "~Bus class delele obj" << std::endl;
+    }
+};
+
+class Minivan : public PassengerCar, public Bus {
+public:
+    Minivan(std::string company, std::string model) : Bus(company, model), PassengerCar(company, model), Car(company, model) {
+        std::cout << "Minivan class. Company: " << company << ", model: " << model << std::endl;
+    }
+    ~Minivan() {
+        std::cout << "~Minivan class delele obj" << std::endl;
+    }
+};
+
+void task2() {
+    Car car("BullS", "Drandel");
+    PassengerCar passengercar("Amoe", "Mark1");
+    Bus bus("Troleb", "Microm");
+    Minivan minivan("Matrew", "Sidas");
+}
 
 
 int main() {
 
     //task1();
-
-
+    task2();
 
 
     return 0;
