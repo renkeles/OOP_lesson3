@@ -149,12 +149,19 @@ public:
         };
     }
 
-    friend Fraction operator+(const Fraction &f1, const Fraction &f2);
+    friend Fraction operator+(const Fraction& f1, const Fraction &f2);
     friend Fraction operator-(const Fraction& f1, const Fraction& f2);
     friend Fraction operator*(const Fraction& f1, const Fraction& f2);
     friend Fraction operator/(const Fraction& f1, const Fraction& f2);
 
     Fraction operator-() const;
+
+    friend bool operator==(const Fraction& f1, const Fraction& f2);
+    friend bool operator!=(const Fraction& f1, const Fraction& f2);
+    friend bool operator< (const Fraction& f1, const Fraction& f2);
+    friend bool operator<=(const Fraction& f1, const Fraction& f2);
+    friend bool operator> (const Fraction& f1, const Fraction& f2);
+    friend bool operator>=(const Fraction& f1, const Fraction& f2);
 
     int getNum() {
         return f_numerator;
@@ -215,6 +222,43 @@ Fraction Fraction::operator-() const {
     return Fraction(-f_numerator, f_denominator);
 }
 
+bool operator==(const Fraction& f1, const Fraction& f2) {
+    return (f1.f_numerator == f2.f_numerator && f1.f_denominator == f2.f_denominator);
+}
+
+bool operator!=(const Fraction& f1, const Fraction& f2) {
+    return (f1.f_numerator != f2.f_numerator || f1.f_denominator != f2.f_denominator);
+}
+
+bool operator< (const Fraction& f1, const Fraction& f2) {
+    if (f1.f_numerator != f2.f_numerator && f1.f_denominator == f2.f_denominator) return (f1.f_numerator < f2.f_numerator);
+    if (f1.f_numerator == f2.f_numerator && f1.f_denominator != f2.f_denominator) return (f1.f_denominator > f2.f_denominator);
+    int nok = NOK(f1.f_denominator, f2.f_denominator);
+    return (nok / f1.f_denominator * f1.f_numerator) < (nok / f2.f_denominator * f2.f_numerator);
+}
+
+bool operator<=(const Fraction& f1, const Fraction& f2) {
+    if (f1 == f2) return true;
+    if (f1 <  f2) return true;
+    return false;
+}
+
+bool operator> (const Fraction& f1, const Fraction& f2) {
+    if (f1 != f2) {
+        return !(f1 < f2);
+    }
+    else {
+        return false;
+    }
+    
+}
+
+bool operator>=(const Fraction& f1, const Fraction& f2) {
+    if (f1 == f2) return true;
+    if (f1 >  f2) return true;
+    return false;
+}
+
 int NOD(int a, int b) {
     while (a != b) {
         if (a > b) {
@@ -231,12 +275,9 @@ int NOK(int a, int b) {
     return abs(a * b) / NOD(a, b);
 }
 
-int main() {
-
-    //task1();
-    //task2();
-    Fraction fr1(2, 3);
-    Fraction fr2(3, 4);
+void task3() {
+    Fraction fr1(7, 15);
+    Fraction fr2(1, 2);
     Fraction fr3;
     fr3 = fr1 + fr2;
     std::cout << fr3.getNum() << "/" << fr3.getDenom() << std::endl;
@@ -249,6 +290,19 @@ int main() {
 
     std::cout << (-fr1).getNum() << "/" << fr1.getDenom() << std::endl;
 
+    if (fr1 == fr2) std::cout << "fr1 == fr2" << std::endl;
+    if (fr1 != fr2) std::cout << "fr1 != fr2" << std::endl;
+    if (fr1 < fr2) std::cout << "fr1 <  fr2" << std::endl;
+    if (fr1 > fr2) std::cout << "fr1 >  fr2" << std::endl;
+    if (fr1 <= fr2) std::cout << "fr1 <= fr2" << std::endl;
+    if (fr1 >= fr2) std::cout << "fr1 >= fr2" << std::endl;
+}
+
+int main() {
+
+    //task1();
+    //task2();
+    //task3();
 
     return 0;
 }
