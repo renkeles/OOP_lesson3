@@ -212,7 +212,7 @@ Fraction operator*(const Fraction& f1, const Fraction& f2) {
 }
 
 Fraction operator/(const Fraction& f1, const Fraction& f2) {
-    
+
     Fraction fr;
     fr.f_numerator = f1.f_numerator * f2.f_denominator;
     fr.f_denominator = f1.f_denominator * f2.f_numerator;
@@ -251,7 +251,7 @@ bool operator> (const Fraction& f1, const Fraction& f2) {
     else {
         return false;
     }
-    
+
 }
 
 bool operator>=(const Fraction& f1, const Fraction& f2) {
@@ -301,13 +301,67 @@ void task3() {
 
 ////////////////////////////////////////////////
 
+enum Suit{
+    HEART,
+    DIAMOND,
+    CLUB,
+    SPADE
+};
+enum Value{
+    JOKER,
+    ACE,
+    KING,
+    QUEEN,
+    JACK,
+    TEN,
+    NINE,
+    EIGHT,
+    SEVEN,
+    SIX
+};
 
+class Card{
+private:
+    Suit _suit;
+    Value _value;
+    bool _faceDown;
+public:
+    Card(Suit suit, Value value, bool faceDown) : _suit(suit), _value(value), _faceDown(faceDown){}
+    Suit getSuit(){
+        return _suit;
+    }
+    Value getValue(){
+        return _value;
+    }
+    bool getFaceDown(){
+        return _faceDown;
+    }
+
+    bool setFaceDown(bool faceDown){
+        _faceDown = faceDown;
+    }
+
+    bool Flip(Card &card){
+        return card.setFaceDown(!card.getFaceDown());
+    }
+};
+
+void task4(){
+    Card card(DIAMOND, ACE, true);
+    std::cout << card.getSuit() << " " << card.getValue() << " " << card.getFaceDown() << std::endl;
+    card.Flip(card);
+    std::cout << card.getSuit() << " " << card.getValue() << " " << card.getFaceDown() << std::endl;
+    //card.Flip(card);
+    //std::cout << card.getSuit() << " " << card.getValue() << " " << card.getFaceDown() << std::endl;
+}
 
 int main() {
+
 
     //task1();
     //task2();
     //task3();
+    task4();
 
     return 0;
 }
